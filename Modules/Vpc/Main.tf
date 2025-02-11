@@ -48,6 +48,19 @@ resource "aws_subnet" "Private-subnet" {
 }
 
 
+
+resource "aws_eip" "nat" {
+  domain = "vpc"
+}
+
+
+resource "aws_nat_gateway" "nat_gateway" {
+  subnet_id = aws_subnet.public-subnet.id
+  allocation_id = aws_eip.nat.id
+
+}
+
+
 resource "aws_route" "route-internet-gw-to-public-route" {
   gateway_id = aws_internet_gateway.internet-gateway-For-Main-Vpc.id
   route_table_id = aws_route_table.Route-table-for-public-subnet.id
@@ -56,6 +69,7 @@ resource "aws_route" "route-internet-gw-to-public-route" {
 resource "aws_route" "route-internet-gw-to-private-route" {
   gateway_id = aws_internet_gateway.internet-gateway-For-Main-Vpc.id
   route_table_id = aws_route_table.Route-table-for-Private-subnet.id
+  nat_gateway_id = aws_nat_gateway.nat_gateway.id
   destination_cidr_block = "0.0.0.0/0"
 }
 

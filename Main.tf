@@ -1,3 +1,13 @@
+/*terraform {
+  required_providers {
+    aws = {
+      source = "value"
+      version = "value"
+    }
+  }
+}*/
+
+
 provider "aws" {
   region = "us-east-1"
   access_key = var.access_key
@@ -8,3 +18,4 @@ provider "aws" {
 module "Main-vpc" {
   source = "./Modules/Vpc"
 }
+
