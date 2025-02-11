@@ -49,7 +49,7 @@ resource "aws_subnet" "Private-subnet" {
 
 
 
-resource "aws_eip" "nat" {
+resource "aws_eip" "aws_eip_for_nat_gate_way" {
   domain = "vpc"
 }
 
